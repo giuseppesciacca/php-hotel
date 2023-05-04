@@ -39,6 +39,14 @@ $hotels = [
 
 ];
 
+$parking = $_GET['parking'];
+
+if ($parking == 'on') {
+    # code...
+} else {
+}
+
+var_dump($parking);
 ?>
 
 
@@ -55,32 +63,43 @@ $hotels = [
 </head>
 
 <body>
-    <!-- [
-    'name' => 'Hotel Belvedere',
-    'description' => 'Hotel Belvedere Descrizione',
-    'parking' => true,
-    'vote' => 4,
-    'distance_to_center' => 10.4
-    ], -->
 
-    <div class="container">
+    <header>
+        <h1 class="text-center py-5">Hotel finder</h1>
 
-        <table class="table text-center">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Parking</th>
-                    <th scope="col">Vote</th>
-                    <th scope="col">Distance to center in km</th>
-                </tr>
-            </thead>
+        <div class="container pb-5 text-end">
+            <form action="" method="get">
+                <label class="btn btn-primary">
+                    <input type="checkbox" class="me-2" name="parking" id="parking" checked autocomplete="off"> Parking
+                </label>
+                <button type="submit" class="btn btn-warning">Submit</button>
+            </form>
+        </div>
+    </header>
 
-            <tbody>
-                <?php
-                foreach ($hotels as $index => $hotel) : ?>
+    <main>
+        <div class="container">
+
+            <table class="table text-center">
+                <thead>
                     <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Parking</th>
+                        <th scope="col">Vote</th>
+                        <th scope="col">Distance to center in km</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($hotels as $index => $hotel) : ?>
+                        <?php if ($parking == 'on' && $hotel["parking"] === false) {
+                            echo '<tr class="d-none">';
+                        } else {
+                            echo "<tr>";
+                        } ?>
+
                         <th scope="row"> <?php echo $index + 1 ?> </th>
 
                         <?php foreach ($hotel as $key => $value) : ?>
@@ -97,13 +116,14 @@ $hotels = [
                                 ?>
                             </td>
                         <?php endforeach ?>
-                    </tr>
-                <?php endforeach ?>
+                        </tr>
+                    <?php endforeach ?>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
-    </div>
+        </div>
+    </main>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/disjs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
