@@ -40,13 +40,18 @@ $hotels = [
 ];
 
 $parking = $_GET['parking'];
+$vote = $_GET['vote'];
 
-if ($parking == 'on') {
-    # code...
+if ($vote == '') {
+    $vote = 0;
+} elseif ($vote > 5) {
+    $vote = 5;
 } else {
+    $vote = ceil($vote);
 }
 
 var_dump($parking);
+var_dump($vote);
 ?>
 
 
@@ -69,10 +74,16 @@ var_dump($parking);
 
         <div class="container pb-5 text-end">
             <form action="" method="get">
-                <label class="btn btn-primary">
-                    <input type="checkbox" class="me-2" name="parking" id="parking" checked autocomplete="off"> Parking
+                <label class="btn btn-primary p-2">
+                    <input type="checkbox" class="me-2" name="parking" id="parking" autocomplete="off"> Parking
+                </label>
+
+                <label for="vote" class="btn btn-primary">
+                    <input type="number" class="me-2" name="vote" id="vote" placeholder="Add 1 to 5" min="0" max="5">
+                    Vote
                 </label>
                 <button type="submit" class="btn btn-warning">Submit</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
             </form>
         </div>
     </header>
@@ -94,7 +105,9 @@ var_dump($parking);
 
                 <tbody>
                     <?php foreach ($hotels as $index => $hotel) : ?>
-                        <?php if ($parking == 'on' && $hotel["parking"] === false) {
+                        <?php if (($parking == 'on' && $hotel["parking"] === false) && ($hotel["vote"] < $vote)) {
+                            echo '<tr class="d-none">';
+                        } elseif (($parking == 'on' && $hotel["parking"] === false) || ($hotel["vote"] < $vote)) {
                             echo '<tr class="d-none">';
                         } else {
                             echo "<tr>";
