@@ -55,8 +55,31 @@ $hotels = [
 </head>
 
 <body>
+    <!-- [
+    'name' => 'Hotel Belvedere',
+    'description' => 'Hotel Belvedere Descrizione',
+    'parking' => true,
+    'vote' => 4,
+    'distance_to_center' => 10.4
+    ], -->
+
+    <div class="container">
+        <div class="row">
+
+            <?php
+            foreach ($hotels as $hotel) : ?>
+                <div class="col">
+                    <div class="card">
+                        <?php foreach ($hotel as $key => $value) : ?>
+                            <p> <?php echo $key . ': ' . $value; ?> </p>
+                        <?php endforeach ?>
+                    </div>
+                </div>
+            <?php endforeach ?>
 
 
+        </div>
+    </div>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/disjs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
