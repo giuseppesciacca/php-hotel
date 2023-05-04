@@ -64,21 +64,33 @@ $hotels = [
     ], -->
 
     <div class="container">
-        <div class="row">
 
-            <?php
-            foreach ($hotels as $hotel) : ?>
-                <div class="col">
-                    <div class="card">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Parking</th>
+                    <th scope="col">Vote</th>
+                    <th scope="col">Distance to center</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php
+                foreach ($hotels as $index => $hotel) : ?>
+                    <tr>
+                        <th scope="row"> <?php echo $index + 1 ?> </th>
                         <?php foreach ($hotel as $key => $value) : ?>
-                            <p> <?php echo $key . ': ' . $value; ?> </p>
+                            <td> <?php echo $value; ?> </td>
                         <?php endforeach ?>
-                    </div>
-                </div>
-            <?php endforeach ?>
+                    </tr>
+                <?php endforeach ?>
 
+            </tbody>
+        </table>
 
-        </div>
     </div>
 
     <!-- Bootstrap JS Bundle -->
