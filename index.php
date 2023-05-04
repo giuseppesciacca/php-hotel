@@ -65,7 +65,7 @@ $hotels = [
 
     <div class="container">
 
-        <table class="table">
+        <table class="table text-center">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -73,7 +73,7 @@ $hotels = [
                     <th scope="col">Description</th>
                     <th scope="col">Parking</th>
                     <th scope="col">Vote</th>
-                    <th scope="col">Distance to center</th>
+                    <th scope="col">Distance to center in km</th>
                 </tr>
             </thead>
 
@@ -82,8 +82,20 @@ $hotels = [
                 foreach ($hotels as $index => $hotel) : ?>
                     <tr>
                         <th scope="row"> <?php echo $index + 1 ?> </th>
+
                         <?php foreach ($hotel as $key => $value) : ?>
-                            <td> <?php echo $value; ?> </td>
+                            <td>
+                                <?php
+                                /* if for checking parking. If value === true parking exist, === false don't exist. For other case print the value. */
+                                if ($value === true) {
+                                    echo 'Free parking';
+                                } elseif ($value === false) {
+                                    echo 'Not avaible';
+                                } else {
+                                    echo $value;
+                                }
+                                ?>
+                            </td>
                         <?php endforeach ?>
                     </tr>
                 <?php endforeach ?>
