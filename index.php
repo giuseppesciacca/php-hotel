@@ -52,6 +52,17 @@ if ($vote == '') {
 
 var_dump($parking);
 var_dump($vote);
+
+function filter_vote_and_parking($parking, $vote, $hotel)
+{
+    if (($parking == 'on' && $hotel["parking"] === false) && ($hotel["vote"] < $vote)) {
+        return '<tr class="d-none">';
+    } elseif (($parking == 'on' && $hotel["parking"] === false) || ($hotel["vote"] < $vote)) {
+        return '<tr class="d-none">';
+    } else {
+        return "<tr>";
+    }
+};
 ?>
 
 
@@ -105,32 +116,22 @@ var_dump($vote);
 
                 <tbody>
                     <?php foreach ($hotels as $index => $hotel) : ?>
-                        <?php if (($parking == 'on' && $hotel["parking"] === false) && ($hotel["vote"] < $vote)) {
-                            echo '<tr class="d-none">';
-                        } elseif (($parking == 'on' && $hotel["parking"] === false) || ($hotel["vote"] < $vote)) {
-                            echo '<tr class="d-none">';
-                        } else {
-                            echo "<tr>";
-                        } ?>
+                        <?php echo filter_vote_and_parking($parking, $vote, $hotel) ?>
 
                         <th scope="row"> <?php echo $index + 1 ?> </th>
 
                         <?php foreach ($hotel as $key => $value) : ?>
                             <td>
-                                <?php
-                                /* if for checking parking. If value === true parking exist, === false don't exist. For other case print the value. */
-                                if ($value === true) {
-                                    echo 'Free parking';
-                                } elseif ($value === false) {
-                                    echo 'Not avaible';
-                                } else {
-                                    echo $value;
-                                }
-                                ?>
+                                <?php if ($value === true) : ?>
+                                    Free parking
+                                <?php elseif ($value === false) : ?>
+                                    Not avaible
+                                <?php else : echo $value ?>
                             </td>
-                        <?php endforeach ?>
-                        </tr>
-                    <?php endforeach ?>
+                    <?php endif;
+                            endforeach ?>
+                    </tr>
+                <?php endforeach ?>
 
                 </tbody>
             </table>
